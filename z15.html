@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>清</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4eedd;--ink:#2b2b2b;--seal:#c8322b;--soft:#8a8578}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--paper)}
+body{margin:0;min-height:100vh;min-height:100dvh;color:var(--ink);
+  background:var(--paper) url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.75'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%20.42%200%200%200%200%20.32%200%200%200%200%20.18%200%200%200%20.09%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%2F%3E%3C%2Fsvg%3E");
+  font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;
+  -webkit-font-smoothing:antialiased}
+.brush{font-family:'Ma Shan Zheng','KaiTi','STKaiti','Kaiti SC','Songti SC',serif}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01s!important}
+}
+
+main{max-width:520px;margin:0 auto;padding:18px 16px 40px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.sq{position:relative;width:min(80vw,44dvh,360px);width:min(80vw,360px);aspect-ratio:1;background:var(--bg,#fff);
+  border:3px solid var(--ink);border-radius:10px;box-shadow:4px 5px 0 rgba(43,43,43,.18);overflow:hidden;transition:background .35s}
+.sq .gh,.sq .gv{position:absolute;pointer-events:none}
+.sq .gh{left:0;right:0;top:50%;border-top:2px dashed var(--gl,rgba(43,43,43,.2))}
+.sq .gv{top:0;bottom:0;left:50%;border-left:2px dashed var(--gl,rgba(43,43,43,.2))}
+.pic{width:min(80vw,360px);height:min(46vw,200px);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.55);border:3px solid var(--ink);border-radius:18px;box-shadow:3px 4px 0 rgba(43,43,43,.18)}
+.pic[hidden]{display:none}
+.pic svg{height:78%;width:auto;max-width:90%}
+#hz{position:absolute;inset:0;width:100%;height:100%}
+.word{border:0;background:none;padding:0 18px;line-height:1.1;font-size:96px;min-height:112px;min-width:140px;
+  font-family:'Ma Shan Zheng','KaiTi','STKaiti','Songti SC',serif;color:var(--ink)}
+.word.en{font-family:'Noto Serif SC',Georgia,serif;font-size:60px;font-weight:700;letter-spacing:1px}
+.word.out{-webkit-text-stroke:3px var(--ink);paint-order:stroke fill}
+.vbs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:-6px}
+.vb{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:68px;min-height:68px;padding:6px 8px;
+  background:rgba(255,255,255,.55);border:2.5px solid var(--ink);border-radius:16px;font-size:15px;box-shadow:2px 3px 0 rgba(43,43,43,.2)}
+.vb[aria-pressed="true"]{background:#fff;box-shadow:inset 0 0 0 3px var(--seal);border-color:var(--seal)}
+.vb .sw{width:40px;height:40px;border-radius:50%;border:2.5px solid var(--ink)}
+.vb svg{width:40px;height:40px}
+.vbs.c{gap:6px;flex-wrap:nowrap}
+.vb.color{min-width:0;flex:1 1 0;padding:6px 2px;min-height:64px}
+.vb.color .sw{width:34px;height:34px}
+h2{font-family:'Ma Shan Zheng','Noto Serif SC','KaiTi','Songti SC',serif;font-weight:400;font-size:32px;margin:14px 0 0;letter-spacing:2px}
+.fr{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;margin:0;padding:0;list-style:none}
+.fr li{display:flex}
+.fb{display:flex;align-items:center;gap:10px;width:100%;min-height:76px;padding:8px 12px;text-align:left;background:rgba(255,255,255,.55);
+  border:2.5px solid var(--ink);border-radius:18px;box-shadow:2px 3px 0 rgba(43,43,43,.2);font-family:'Noto Serif SC','Songti SC',serif}
+.fb:active{transform:translateY(2px)}
+.fb.en{background:#fff;border-color:var(--seal);box-shadow:inset 0 0 0 2px var(--seal)}
+.fb.en span{font-size:19px;overflow-wrap:normal}
+.fb.en.long span{font-size:15px}
+.fb span{min-width:0}
+.fr svg{flex:none;width:52px;height:52px}
+.fr span{font-size:26px;font-weight:700;line-height:1.15}
+.fr b{color:var(--seal)}
+.back{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:64px;min-width:200px;margin-top:10px;padding:10px 28px;
+  border:3px solid var(--ink);border-radius:999px;background:#fff;text-decoration:none;font-size:28px;
+  font-family:'Ma Shan Zheng','KaiTi','Songti SC',serif;box-shadow:3px 4px 0 rgba(43,43,43,.25)}
+.back:active{transform:translateY(2px)}
+</style></head>
+<body><main>
+<div class="pic" id="art" hidden></div>
+<div class="sq" id="sq"><div class="gh"></div><div class="gv"></div><svg id="hz" viewBox="0 0 1024 1024" role="img" aria-label="清"></svg></div>
+<button class="word" id="word" type="button">清</button>
+
+<h2>Good friends</h2>
+<ul class="fr"><li><button class="fb" type="button" data-en="water" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 6C22 22 14 30 14 40a18 18 0 0 0 36 0c0-10-8-18-18-34z" fill="#8ac7ee"/><path d="M24 42a8 8 0 0 0 7 7" stroke="#fff" stroke-width="3"/></svg><span><b>清</b>水</span></button></li><li><button class="fb" type="button" data-en="morning" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 44a18 18 0 0 1 36 0z" fill="#ffd23f"/><path d="M6 44h52M32 14v6M12 24l4 4M52 24l-4 4" stroke-width="3"/><path d="M14 52h36" stroke="#2f7fd0"/></svg><span><b>清</b>晨</span></button></li><li><button class="fb" type="button" data-en="breeze" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 24h32a7 7 0 1 0-7-7M6 36h42a7 7 0 1 1-7 7M6 48h22" stroke="#6aa6d6" stroke-width="3.5"/></svg><span><b>清</b>风</span></button></li></ul>
+<a class="back" href="./"><svg class="" viewBox="0 0 64 64" width="30" height="30" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-90 32 32)"><path d="M32 54V12M15 29L32 12l17 17" stroke="#2f7fd0" stroke-width="6"/></g></svg>回到诗</a>
+</main>
+<script>
+(function(){
+var DATA={"清":{"strokes":["M 217 709 Q 247 684 279 651 Q 294 638 311 638 Q 323 638 328 653 Q 334 669 324 701 Q 318 723 284 740 Q 206 770 188 763 Q 182 759 184 745 Q 188 732 217 709 Z","M 123 508 Q 180 450 214 434 Q 230 431 239 445 Q 245 458 242 475 Q 227 520 138 546 Q 137 547 136 547 Q 118 553 109 548 Q 103 547 106 534 Q 107 522 123 508 Z","M 137 146 Q 125 143 127 125 Q 139 53 175 32 Q 182 25 193 28 Q 200 29 201 54 Q 208 102 317 372 Q 324 388 323 394 Q 322 404 313 397 Q 303 390 291 374 Q 233 277 180 192 Q 167 170 137 146 Z","M 625 692 Q 763 725 767 727 Q 776 734 771 744 Q 764 756 734 763 Q 707 769 629 742 L 574 729 Q 516 716 450 710 Q 413 704 439 686 Q 482 662 550 678 Q 560 681 575 682 L 625 692 Z","M 617 581 Q 740 608 743 610 Q 750 617 747 625 Q 740 635 714 643 Q 681 650 620 625 C 597 616 597 616 575 613 Q 574 614 572 613 Q 523 603 465 598 Q 431 592 455 577 Q 486 558 557 570 Q 564 571 574 572 L 617 581 Z","M 612 511 Q 613 547 617 581 L 620 625 Q 621 659 625 692 L 629 742 Q 635 782 644 817 Q 648 827 629 842 Q 595 860 573 863 Q 557 867 550 859 Q 543 852 551 837 Q 570 809 571 788 Q 572 760 574 729 L 575 682 Q 575 649 575 613 L 574 572 Q 573 541 573 505 C 573 475 611 481 612 511 Z","M 573 505 Q 464 489 340 470 Q 319 467 335 451 Q 348 438 366 433 Q 387 429 402 433 Q 610 497 921 497 Q 922 497 924 497 Q 943 497 948 506 Q 952 516 937 530 Q 886 566 849 557 Q 765 538 620 513 Q 616 513 612 511 L 573 505 Z","M 496 173 Q 497 216 502 248 L 504 275 Q 507 335 512 358 C 515 377 515 377 504 386 Q 482 408 451 406 Q 438 402 443 391 Q 482 304 439 115 Q 418 57 418 55 Q 412 30 436 -2 Q 442 -15 452 -10 Q 494 17 494 140 Q 494 144 495 146 L 496 173 Z","M 512 358 Q 522 359 538 364 Q 665 395 686 386 Q 699 380 699 354 Q 712 182 703 48 Q 702 20 685 16 Q 676 13 626 25 Q 614 29 614 21 Q 615 12 630 2 Q 663 -29 687 -61 Q 700 -77 716 -77 Q 732 -73 754 -26 Q 779 23 775 72 Q 768 190 759 300 Q 755 343 773 378 Q 786 394 771 408 Q 752 424 713 437 Q 691 447 673 435 Q 655 428 621 416 Q 542 395 504 386 C 475 379 483 351 512 358 Z","M 502 248 Q 503 248 508 248 Q 578 258 631 265 Q 653 269 645 281 Q 635 294 611 299 Q 586 302 504 275 C 475 266 472 248 502 248 Z","M 495 146 Q 499 146 505 146 Q 578 155 634 160 Q 656 163 649 176 Q 639 191 613 196 Q 583 202 496 173 C 468 164 465 146 495 146 Z"],"medians":[[[193,756],[283,699],[310,656]],[[117,539],[195,486],[219,455]],[[187,38],[173,81],[173,115],[316,390]],[[442,699],[504,693],[633,717],[711,739],[737,742],[763,736]],[[457,589],[485,583],[527,585],[696,622],[739,619]],[[561,850],[594,825],[605,803],[594,533],[579,512]],[[338,460],[393,454],[632,499],[867,528],[937,511]],[[452,396],[480,370],[484,335],[470,129],[449,41],[447,0]],[[511,380],[527,375],[693,413],[734,386],[730,297],[740,64],[734,19],[709,-20],[621,19]],[[505,255],[519,266],[575,277],[614,281],[635,275]],[[500,153],[531,167],[579,175],[638,171]]]}}, CFG={"start":"清","kind":null,"items":[],"en":"clear"};
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var sq=document.getElementById('sq'),hz=document.getElementById('hz'),art=document.getElementById('art'),word=document.getElementById('word');
+var cur=CFG.start,showEn=false,raf=0,state=null;
+function item(ch){for(var i=0;i<CFG.items.length;i++)if(CFG.items[i].ch===ch)return CFG.items[i];return null}
+function enOf(ch){var it=item(ch);return it?it.en:CFG.en}
+function mlen(m){var s=0;for(var i=1;i<m.length;i++){s+=Math.hypot(m[i][0]-m[i-1][0],m[i][1]-m[i-1][1])}return s}
+function build(ch,fg){
+  var d=DATA[ch],ns='http://www.w3.org/2000/svg';
+  var defs='',ghost='',ink='';
+  d.strokes.forEach(function(p,i){
+    defs+='<clipPath id="cp'+i+'"><path d="'+p+'"/></clipPath>';
+    ghost+='<path d="'+p+'"/>';
+    var m=d.medians[i],pts='M'+m[0][0]+' '+m[0][1];
+    for(var k=1;k<m.length;k++)pts+=' L'+m[k][0]+' '+m[k][1];
+    if(m.length===1)pts+=' L'+m[0][0]+' '+m[0][1];
+    ink+='<g clip-path="url(#cp'+i+')"><path class="ms" d="'+pts+'" pathLength="1" fill="none" stroke="'+fg+'" stroke-width="190" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 1" stroke-dashoffset="1" stroke-opacity="0"/></g>';
+  });
+  hz.innerHTML='<defs>'+defs+'</defs><g transform="scale(1,-1) translate(0,-900)"><g fill="'+fg+'" fill-opacity=".13">'+ghost+'</g><g id="ink">'+ink+'</g></g>';
+  var ms=hz.querySelectorAll('.ms'),lens=d.medians.map(mlen),t=0,sched=[];
+  lens.forEach(function(L){var dur=.4+L/1100;sched.push({s:t,d:dur});t+=dur+.14});
+  return {ms:ms,sched:sched,draw:t,inkG:hz.querySelector('#ink')};
+}
+function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+function frame(c){
+  var s=state,hold=1.4,fade=.6;
+  for(var i=0;i<s.ms.length;i++){
+    var p=Math.max(0,Math.min(1,(c-s.sched[i].s)/s.sched[i].d));
+    s.ms[i].setAttribute('stroke-dashoffset',String(1-ease(p)));
+    s.ms[i].setAttribute('stroke-opacity',p>0?'1':'0');
+  }
+  var o=1;if(c>s.draw+hold)o=Math.max(0,1-(c-s.draw-hold)/fade);
+  s.inkG.setAttribute('opacity',String(o));
+}
+function play(ch,fg){
+  cancelAnimationFrame(raf);state=build(ch,fg);
+  if(reduce){frame(1e6-1+0);state.inkG.setAttribute('opacity','1');for(var i=0;i<state.ms.length;i++){state.ms[i].setAttribute('stroke-dashoffset','0');state.ms[i].setAttribute('stroke-opacity','1')}return}
+  var t0=performance.now(),cycle=state.draw+1.4+.6+.45;
+  (function loop(now){var c=((now-t0)/1000)%cycle;frame(c);raf=requestAnimationFrame(loop)})(t0);
+}
+function show(ch){
+  cur=ch;showEn=false;var it=item(ch);
+  var bg='#ffffff',fg='#2b2b2b',gl='rgba(43,43,43,.2)',outline=false,col='';
+  art.innerHTML='';
+  if(CFG.kind==='color'&&it){bg=it.color;fg=it.fg;col=it.color;outline=true;gl=fg==='#ffffff'?'rgba(255,255,255,.35)':'rgba(43,43,43,.2)'}
+  else if(CFG.kind==='art'&&it){art.innerHTML=CFG.icons[ch]||''}
+  sq.style.setProperty('--bg',bg);sq.style.setProperty('--gl',gl);
+  word.textContent=ch;word.className='word'+(outline?' out':'');word.style.color=col||'';
+  word.setAttribute('aria-label',ch);
+  var bs=document.querySelectorAll('.vb');for(var i=0;i<bs.length;i++)bs[i].setAttribute('aria-pressed',bs[i].getAttribute('data-ch')===ch?'true':'false');
+  play(ch,fg);
+}
+word.addEventListener('click',function(){
+  showEn=!showEn;
+  if(showEn){word.textContent=enOf(cur);word.classList.add('en');word.classList.remove('out')}
+  else{var it=item(cur);word.textContent=cur;word.classList.remove('en');if(CFG.kind==='color'&&it)word.classList.add('out')}
+});
+var bs=document.querySelectorAll('.vb');
+for(var i=0;i<bs.length;i++)bs[i].addEventListener('click',function(){show(this.getAttribute('data-ch'))});
+var fbs=document.querySelectorAll('.fb');
+for(var f=0;f<fbs.length;f++){(function(b){var sp=b.querySelector('span'),zh=sp.innerHTML,en=b.getAttribute('data-en');
+  b.addEventListener('click',function(){var on=!b.classList.contains('en');b.classList.toggle('en',on);b.classList.toggle('long',on&&en.length>=9);b.setAttribute('aria-pressed',on?'true':'false');sp.innerHTML=on?en:zh})})(fbs[f])}
+show(cur);
+})();
+</script>
+</body></html>

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>水</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4eedd;--ink:#2b2b2b;--seal:#c8322b;--soft:#8a8578}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--paper)}
+body{margin:0;min-height:100vh;min-height:100dvh;color:var(--ink);
+  background:var(--paper) url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.75'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%20.42%200%200%200%200%20.32%200%200%200%200%20.18%200%200%200%20.09%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%2F%3E%3C%2Fsvg%3E");
+  font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;
+  -webkit-font-smoothing:antialiased}
+.brush{font-family:'Ma Shan Zheng','KaiTi','STKaiti','Kaiti SC','Songti SC',serif}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01s!important}
+}
+
+main{max-width:520px;margin:0 auto;padding:18px 16px 40px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.sq{position:relative;width:min(80vw,44dvh,360px);width:min(80vw,360px);aspect-ratio:1;background:var(--bg,#fff);
+  border:3px solid var(--ink);border-radius:10px;box-shadow:4px 5px 0 rgba(43,43,43,.18);overflow:hidden;transition:background .35s}
+.sq .gh,.sq .gv{position:absolute;pointer-events:none}
+.sq .gh{left:0;right:0;top:50%;border-top:2px dashed var(--gl,rgba(43,43,43,.2))}
+.sq .gv{top:0;bottom:0;left:50%;border-left:2px dashed var(--gl,rgba(43,43,43,.2))}
+.pic{width:min(80vw,360px);height:min(46vw,200px);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.55);border:3px solid var(--ink);border-radius:18px;box-shadow:3px 4px 0 rgba(43,43,43,.18)}
+.pic[hidden]{display:none}
+.pic svg{height:78%;width:auto;max-width:90%}
+#hz{position:absolute;inset:0;width:100%;height:100%}
+.word{border:0;background:none;padding:0 18px;line-height:1.1;font-size:96px;min-height:112px;min-width:140px;
+  font-family:'Ma Shan Zheng','KaiTi','STKaiti','Songti SC',serif;color:var(--ink)}
+.word.en{font-family:'Noto Serif SC',Georgia,serif;font-size:60px;font-weight:700;letter-spacing:1px}
+.word.out{-webkit-text-stroke:3px var(--ink);paint-order:stroke fill}
+.vbs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:-6px}
+.vb{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:68px;min-height:68px;padding:6px 8px;
+  background:rgba(255,255,255,.55);border:2.5px solid var(--ink);border-radius:16px;font-size:15px;box-shadow:2px 3px 0 rgba(43,43,43,.2)}
+.vb[aria-pressed="true"]{background:#fff;box-shadow:inset 0 0 0 3px var(--seal);border-color:var(--seal)}
+.vb .sw{width:40px;height:40px;border-radius:50%;border:2.5px solid var(--ink)}
+.vb svg{width:40px;height:40px}
+.vbs.c{gap:6px;flex-wrap:nowrap}
+.vb.color{min-width:0;flex:1 1 0;padding:6px 2px;min-height:64px}
+.vb.color .sw{width:34px;height:34px}
+h2{font-family:'Ma Shan Zheng','Noto Serif SC','KaiTi','Songti SC',serif;font-weight:400;font-size:32px;margin:14px 0 0;letter-spacing:2px}
+.fr{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;margin:0;padding:0;list-style:none}
+.fr li{display:flex}
+.fb{display:flex;align-items:center;gap:10px;width:100%;min-height:76px;padding:8px 12px;text-align:left;background:rgba(255,255,255,.55);
+  border:2.5px solid var(--ink);border-radius:18px;box-shadow:2px 3px 0 rgba(43,43,43,.2);font-family:'Noto Serif SC','Songti SC',serif}
+.fb:active{transform:translateY(2px)}
+.fb.en{background:#fff;border-color:var(--seal);box-shadow:inset 0 0 0 2px var(--seal)}
+.fb.en span{font-size:19px;overflow-wrap:normal}
+.fb.en.long span{font-size:15px}
+.fb span{min-width:0}
+.fr svg{flex:none;width:52px;height:52px}
+.fr span{font-size:26px;font-weight:700;line-height:1.15}
+.fr b{color:var(--seal)}
+.back{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:64px;min-width:200px;margin-top:10px;padding:10px 28px;
+  border:3px solid var(--ink);border-radius:999px;background:#fff;text-decoration:none;font-size:28px;
+  font-family:'Ma Shan Zheng','KaiTi','Songti SC',serif;box-shadow:3px 4px 0 rgba(43,43,43,.25)}
+.back:active{transform:translateY(2px)}
+</style></head>
+<body><main>
+<div class="pic" id="art"></div>
+<div class="sq" id="sq"><div class="gh"></div><div class="gv"></div><svg id="hz" viewBox="0 0 1024 1024" role="img" aria-label="水"></svg></div>
+<button class="word" id="word" type="button">水</button>
+<div class="vbs"><button class="vb" data-ch="水" aria-pressed="true" aria-label="water"><svg class="" viewBox="0 0 64 64" width="40" height="40" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 6C22 22 14 30 14 40a18 18 0 0 0 36 0c0-10-8-18-18-34z" fill="#8ac7ee"/><path d="M24 42a8 8 0 0 0 7 7" stroke="#fff" stroke-width="3"/></svg><span>水滴</span></button><button class="vb" data-ch="火" aria-pressed="false" aria-label="fire"><svg class="" viewBox="0 0 64 64" width="40" height="40" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 4c2 12 14 18 14 34a14 14 0 0 1-28 0c0-8 4-12 8-16 0 6 2 8 4 8 0-10 0-16 2-26z" fill="#ff8a3d"/><path d="M32 30c1 6 7 8 7 16a7 7 0 0 1-14 0c0-6 5-8 7-16z" fill="#ffd23f"/></svg><span>火苗</span></button><button class="vb" data-ch="山" aria-pressed="false" aria-label="mountain"><svg class="" viewBox="0 0 64 64" width="40" height="40" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 54L22 18l12 18 8-10 20 28z" fill="#8aa88f"/><path d="M22 18l-6 10 6-3 4 4 4-6z" fill="#fff"/></svg><span>高山</span></button><button class="vb" data-ch="木" aria-pressed="false" aria-label="tree"><svg class="" viewBox="0 0 64 64" width="40" height="40" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M29 40h6v18h-6z" fill="#8b5a2b"/><circle cx="32" cy="24" r="18" fill="#7ccf74"/><circle cx="22" cy="30" r="10" fill="#7ccf74"/><circle cx="42" cy="30" r="10" fill="#7ccf74"/></svg><span>大树</span></button></div>
+<h2>Good friends</h2>
+<ul class="fr"><li><button class="fb" type="button" data-en="fruit" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 20c-8-6-22-2-20 14 2 14 12 22 20 18 8 4 18-4 20-18 2-16-12-20-20-14z" fill="#e8584f"/><path d="M32 20c0-6 2-10 6-12" stroke-width="3"/><path d="M36 12c6-4 12-2 12 2-4 2-10 2-12-2z" fill="#7ccf74"/></svg><span><b>水</b>果</span></button></li><li><button class="fb" type="button" data-en="cup" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 14h32l-3 40H17z" fill="#e9f4fc"/><path d="M16 26h28l-1.8 28H17.8z" fill="#8ac7ee"/><path d="M46 20c10 0 10 16 0 16"/></svg><span><b>水</b>杯</span></button></li><li><button class="fb" type="button" data-en="river" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20c8-6 12 6 20 0s12 6 20 0 12 6 16 2M4 34c8-6 12 6 20 0s12 6 20 0 12 6 16 2M4 48c8-6 12 6 20 0s12 6 20 0 12 6 16 2" stroke="#2f7fd0" stroke-width="4"/></svg><span>河<b>水</b></span></button></li><li><button class="fb" type="button" data-en="drop" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M32 6C22 22 14 30 14 40a18 18 0 0 0 36 0c0-10-8-18-18-34z" fill="#8ac7ee"/><path d="M24 42a8 8 0 0 0 7 7" stroke="#fff" stroke-width="3"/></svg><span><b>水</b>滴</span></button></li></ul>
+<a class="back" href="./"><svg class="" viewBox="0 0 64 64" width="30" height="30" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-90 32 32)"><path d="M32 54V12M15 29L32 12l17 17" stroke="#2f7fd0" stroke-width="6"/></g></svg>回到诗</a>
+</main>
+<script>
+(function(){
+var DATA={"水":{"strokes":["M 535 506 Q 538 699 560 762 Q 578 793 520 817 Q 486 836 465 830 Q 447 823 463 799 Q 485 771 486 736 Q 490 697 478 121 Q 477 97 463 88 Q 454 81 432 88 Q 407 94 382 99 Q 348 111 351 100 Q 352 93 373 78 Q 440 24 457 -5 Q 476 -41 493 -42 Q 508 -43 524 -7 Q 543 41 541 117 Q 531 294 534 470 L 535 506 Z","M 154 501 Q 141 501 139 492 Q 138 485 153 477 Q 199 452 227 461 Q 333 489 343 489 Q 359 486 347 456 Q 296 326 249 262 Q 201 190 114 119 Q 99 106 110 103 Q 120 102 141 113 Q 217 153 281 224 Q 342 288 419 454 Q 429 478 441 489 Q 456 501 447 511 Q 437 524 399 537 Q 378 549 336 530 Q 270 509 154 501 Z","M 590 446 Q 630 476 766 584 Q 787 603 814 615 Q 838 627 825 647 Q 809 666 779 681 Q 752 696 738 692 Q 723 691 729 675 Q 735 639 659 553 Q 620 508 577 459 C 557 436 566 428 590 446 Z","M 577 459 Q 555 484 535 506 C 515 528 516 494 534 470 Q 756 161 817 160 Q 898 169 967 175 Q 995 178 996 185 Q 997 192 964 205 Q 810 253 753 295 Q 690 346 590 446 L 577 459 Z"],"medians":[[[473,814],[500,795],[521,770],[508,455],[507,91],[485,42],[442,56],[371,91],[369,98],[358,98]],[[147,491],[209,482],[354,512],[381,505],[392,495],[384,459],[353,387],[280,261],[187,160],[113,110]],[[737,682],[750,671],[766,637],[721,583],[591,461],[590,452]],[[539,500],[550,465],[618,387],[729,271],[782,229],[820,207],[990,185]]]},"火":{"strokes":["M 226 483 Q 254 443 285 393 Q 295 375 312 372 Q 324 369 333 381 Q 342 396 342 430 Q 342 472 235 536 Q 220 543 213 543 Q 206 540 204 526 Q 205 513 226 483 Z","M 690 568 Q 677 547 584 441 Q 571 422 592 425 Q 638 449 738 513 Q 762 532 791 543 Q 816 553 805 575 Q 789 597 759 615 Q 731 633 715 629 Q 700 628 704 612 Q 708 590 690 568 Z","M 511 382 Q 520 439 529 618 Q 530 669 548 728 Q 554 741 543 750 Q 521 769 479 785 Q 454 795 434 789 Q 410 779 430 759 Q 464 725 465 690 Q 469 500 448 374 Q 427 209 284 106 Q 244 81 186 49 Q 170 43 167 39 Q 160 32 179 29 Q 197 28 258 48 Q 301 61 365 101 Q 414 131 442 172 Q 484 232 504 341 L 511 382 Z","M 504 341 Q 597 175 715 40 Q 740 9 767 9 Q 843 13 911 17 Q 939 18 940 25 Q 941 32 910 48 Q 753 117 709 157 Q 592 268 511 382 C 493 406 489 367 504 341 Z"],"medians":[[[216,534],[299,440],[316,391]],[[714,618],[736,593],[744,571],[696,522],[587,433]],[[436,773],[475,753],[497,733],[503,713],[488,443],[470,321],[456,275],[418,195],[368,138],[279,78],[174,36]],[[513,375],[521,341],[606,223],[689,127],[745,76],[768,60],[934,25]]]},"山":{"strokes":["M 536 209 Q 546 407 552 587 Q 556 633 562 664 Q 569 691 574 710 Q 578 723 554 740 Q 512 762 484 767 Q 465 771 456 760 Q 447 751 457 734 Q 488 688 489 655 Q 499 444 488 200 C 487 170 534 179 536 209 Z","M 796 244 Q 657 232 536 209 L 488 200 Q 379 182 284 155 Q 256 148 263 180 Q 267 253 272 329 Q 275 357 263 373 Q 220 416 190 409 Q 178 403 188 382 Q 224 309 215 236 Q 211 166 182 133 Q 161 112 170 96 Q 183 78 203 66 Q 219 57 230 67 Q 243 83 283 99 Q 440 151 606 182 Q 757 210 789 197 C 819 193 826 247 796 244 Z","M 789 197 Q 783 166 774 145 Q 756 118 785 55 Q 795 36 809 49 Q 837 73 846 173 Q 868 386 890 427 Q 900 443 889 460 Q 867 479 831 501 Q 816 510 802 503 Q 793 499 796 484 Q 823 435 796 244 L 789 197 Z"],"medians":[[[472,748],[525,700],[514,235],[493,208]],[[196,398],[217,379],[239,340],[243,263],[233,126],[282,127],[380,155],[575,197],[710,218],[772,221],[788,237]],[[810,490],[826,477],[849,433],[798,57]]]},"木":{"strokes":["M 524 533 Q 537 536 755 560 Q 768 557 779 573 Q 780 586 754 600 Q 709 627 634 603 Q 526 582 524 580 L 479 572 Q 404 563 234 546 Q 200 542 226 521 Q 265 491 291 494 Q 309 503 446 521 L 524 533 Z","M 524 580 Q 524 682 544 758 Q 559 783 532 802 Q 516 814 485 833 Q 460 851 439 834 Q 433 828 440 813 Q 474 762 476 711 Q 477 647 479 572 L 477 458 Q 474 208 466 155 Q 442 46 456 5 Q 460 -7 466 -21 Q 473 -40 481 -43 Q 488 -50 495 -41 Q 504 -37 514 -15 Q 524 10 523 44 Q 522 90 523 480 L 524 580 Z","M 446 521 Q 368 337 127 132 Q 114 119 124 117 Q 134 113 146 119 Q 276 176 403 344 Q 472 450 477 458 C 528 538 464 563 446 521 Z","M 523 480 Q 607 338 716 186 Q 737 159 774 157 Q 901 147 942 150 Q 954 151 957 157 Q 957 164 941 173 Q 773 251 721 302 Q 628 398 523 532 Q 523 533 524 533 L 524 533 C 506 558 508 506 523 480 Z"],"medians":[[[228,534],[280,522],[695,584],[728,584],[766,574]],[[453,825],[506,771],[498,218],[486,-29]],[[474,519],[459,504],[447,460],[404,389],[332,297],[244,206],[179,154],[130,124]],[[528,513],[549,470],[641,344],[749,220],[789,200],[951,159]]]}}, CFG={"start":"水","kind":"art","items":[{"ch":"水","en":"water"},{"ch":"火","en":"fire"},{"ch":"山","en":"mountain"},{"ch":"木","en":"tree"}],"en":"","icons":{"水":"<svg class=\"big\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\" fill=\"none\" stroke=\"#2b2b2b\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M32 6C22 22 14 30 14 40a18 18 0 0 0 36 0c0-10-8-18-18-34z\" fill=\"#8ac7ee\"/><path d=\"M24 42a8 8 0 0 0 7 7\" stroke=\"#fff\" stroke-width=\"3\"/></svg>","火":"<svg class=\"big\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\" fill=\"none\" stroke=\"#2b2b2b\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M32 4c2 12 14 18 14 34a14 14 0 0 1-28 0c0-8 4-12 8-16 0 6 2 8 4 8 0-10 0-16 2-26z\" fill=\"#ff8a3d\"/><path d=\"M32 30c1 6 7 8 7 16a7 7 0 0 1-14 0c0-6 5-8 7-16z\" fill=\"#ffd23f\"/></svg>","山":"<svg class=\"big\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\" fill=\"none\" stroke=\"#2b2b2b\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M2 54L22 18l12 18 8-10 20 28z\" fill=\"#8aa88f\"/><path d=\"M22 18l-6 10 6-3 4 4 4-6z\" fill=\"#fff\"/></svg>","木":"<svg class=\"big\" viewBox=\"0 0 64 64\" width=\"64\" height=\"64\" fill=\"none\" stroke=\"#2b2b2b\" stroke-width=\"2.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M29 40h6v18h-6z\" fill=\"#8b5a2b\"/><circle cx=\"32\" cy=\"24\" r=\"18\" fill=\"#7ccf74\"/><circle cx=\"22\" cy=\"30\" r=\"10\" fill=\"#7ccf74\"/><circle cx=\"42\" cy=\"30\" r=\"10\" fill=\"#7ccf74\"/></svg>"}};
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var sq=document.getElementById('sq'),hz=document.getElementById('hz'),art=document.getElementById('art'),word=document.getElementById('word');
+var cur=CFG.start,showEn=false,raf=0,state=null;
+function item(ch){for(var i=0;i<CFG.items.length;i++)if(CFG.items[i].ch===ch)return CFG.items[i];return null}
+function enOf(ch){var it=item(ch);return it?it.en:CFG.en}
+function mlen(m){var s=0;for(var i=1;i<m.length;i++){s+=Math.hypot(m[i][0]-m[i-1][0],m[i][1]-m[i-1][1])}return s}
+function build(ch,fg){
+  var d=DATA[ch],ns='http://www.w3.org/2000/svg';
+  var defs='',ghost='',ink='';
+  d.strokes.forEach(function(p,i){
+    defs+='<clipPath id="cp'+i+'"><path d="'+p+'"/></clipPath>';
+    ghost+='<path d="'+p+'"/>';
+    var m=d.medians[i],pts='M'+m[0][0]+' '+m[0][1];
+    for(var k=1;k<m.length;k++)pts+=' L'+m[k][0]+' '+m[k][1];
+    if(m.length===1)pts+=' L'+m[0][0]+' '+m[0][1];
+    ink+='<g clip-path="url(#cp'+i+')"><path class="ms" d="'+pts+'" pathLength="1" fill="none" stroke="'+fg+'" stroke-width="190" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 1" stroke-dashoffset="1" stroke-opacity="0"/></g>';
+  });
+  hz.innerHTML='<defs>'+defs+'</defs><g transform="scale(1,-1) translate(0,-900)"><g fill="'+fg+'" fill-opacity=".13">'+ghost+'</g><g id="ink">'+ink+'</g></g>';
+  var ms=hz.querySelectorAll('.ms'),lens=d.medians.map(mlen),t=0,sched=[];
+  lens.forEach(function(L){var dur=.4+L/1100;sched.push({s:t,d:dur});t+=dur+.14});
+  return {ms:ms,sched:sched,draw:t,inkG:hz.querySelector('#ink')};
+}
+function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+function frame(c){
+  var s=state,hold=1.4,fade=.6;
+  for(var i=0;i<s.ms.length;i++){
+    var p=Math.max(0,Math.min(1,(c-s.sched[i].s)/s.sched[i].d));
+    s.ms[i].setAttribute('stroke-dashoffset',String(1-ease(p)));
+    s.ms[i].setAttribute('stroke-opacity',p>0?'1':'0');
+  }
+  var o=1;if(c>s.draw+hold)o=Math.max(0,1-(c-s.draw-hold)/fade);
+  s.inkG.setAttribute('opacity',String(o));
+}
+function play(ch,fg){
+  cancelAnimationFrame(raf);state=build(ch,fg);
+  if(reduce){frame(1e6-1+0);state.inkG.setAttribute('opacity','1');for(var i=0;i<state.ms.length;i++){state.ms[i].setAttribute('stroke-dashoffset','0');state.ms[i].setAttribute('stroke-opacity','1')}return}
+  var t0=performance.now(),cycle=state.draw+1.4+.6+.45;
+  (function loop(now){var c=((now-t0)/1000)%cycle;frame(c);raf=requestAnimationFrame(loop)})(t0);
+}
+function show(ch){
+  cur=ch;showEn=false;var it=item(ch);
+  var bg='#ffffff',fg='#2b2b2b',gl='rgba(43,43,43,.2)',outline=false,col='';
+  art.innerHTML='';
+  if(CFG.kind==='color'&&it){bg=it.color;fg=it.fg;col=it.color;outline=true;gl=fg==='#ffffff'?'rgba(255,255,255,.35)':'rgba(43,43,43,.2)'}
+  else if(CFG.kind==='art'&&it){art.innerHTML=CFG.icons[ch]||''}
+  sq.style.setProperty('--bg',bg);sq.style.setProperty('--gl',gl);
+  word.textContent=ch;word.className='word'+(outline?' out':'');word.style.color=col||'';
+  word.setAttribute('aria-label',ch);
+  var bs=document.querySelectorAll('.vb');for(var i=0;i<bs.length;i++)bs[i].setAttribute('aria-pressed',bs[i].getAttribute('data-ch')===ch?'true':'false');
+  play(ch,fg);
+}
+word.addEventListener('click',function(){
+  showEn=!showEn;
+  if(showEn){word.textContent=enOf(cur);word.classList.add('en');word.classList.remove('out')}
+  else{var it=item(cur);word.textContent=cur;word.classList.remove('en');if(CFG.kind==='color'&&it)word.classList.add('out')}
+});
+var bs=document.querySelectorAll('.vb');
+for(var i=0;i<bs.length;i++)bs[i].addEventListener('click',function(){show(this.getAttribute('data-ch'))});
+var fbs=document.querySelectorAll('.fb');
+for(var f=0;f<fbs.length;f++){(function(b){var sp=b.querySelector('span'),zh=sp.innerHTML,en=b.getAttribute('data-en');
+  b.addEventListener('click',function(){var on=!b.classList.contains('en');b.classList.toggle('en',on);b.classList.toggle('long',on&&en.length>=9);b.setAttribute('aria-pressed',on?'true':'false');sp.innerHTML=on?en:zh})})(fbs[f])}
+show(cur);
+})();
+</script>
+</body></html>

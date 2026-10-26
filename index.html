@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>咏鹅</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4eedd;--ink:#2b2b2b;--seal:#c8322b;--soft:#8a8578}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--paper)}
+body{margin:0;min-height:100vh;min-height:100dvh;color:var(--ink);
+  background:var(--paper) url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.75'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%20.42%200%200%200%200%20.32%200%200%200%200%20.18%200%200%200%20.09%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%2F%3E%3C%2Fsvg%3E");
+  font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;
+  -webkit-font-smoothing:antialiased}
+.brush{font-family:'Ma Shan Zheng','KaiTi','STKaiti','Kaiti SC','Songti SC',serif}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01s!important}
+}
+
+main{max-width:560px;margin:0 auto;padding:14px 14px 48px;display:flex;flex-direction:column;align-items:center;gap:14px}
+#paint{width:100%;height:auto;display:block;border-radius:12px;box-shadow:4px 6px 0 rgba(43,43,43,.2)}
+#paint .brush,#paint .pt,#paint .tt{font-family:'Ma Shan Zheng','KaiTi','STKaiti','Songti SC',serif}
+#paint .pt text{font-size:27px}
+#paint .pt{opacity:.15;transition:opacity 1.2s ease}
+#paint .pt.on{opacity:1}
+#paint .ns{vector-effect:non-scaling-stroke}
+#paint .note{opacity:0}
+#paint .cloud,#paint .sun,#paint .hop,#paint .bob,#paint .foot,#paint .ring,#paint .wl,#paint .note{transform-box:fill-box}
+#paint .foot,#paint .ring{transform-origin:50% 0}
+#paint .ring{transform-origin:50% 50%}
+#paint .ring{opacity:.6}
+@keyframes rise{from{transform:translateY(150px);opacity:.15}to{transform:none;opacity:1}}
+@keyframes drift{from{transform:translateX(-12px)}to{transform:translateX(16px)}}
+@keyframes floatup{0%{transform:translate(0,12px) rotate(-6deg);opacity:0}20%{opacity:1}100%{transform:translate(22px,-52px) rotate(14deg);opacity:0}}
+@keyframes hop{0%,100%{transform:none}10%{transform:translateY(-13px)}20%{transform:none}38%{transform:translateY(-13px)}48%{transform:none}66%{transform:translateY(-13px)}76%{transform:none}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@keyframes shimmer{from{transform:translateX(-6px)}to{transform:translateX(8px)}}
+@keyframes paddle{from{transform:rotate(-16deg)}to{transform:rotate(16deg)}}
+@keyframes ring{0%{transform:scale(.55);opacity:0}25%{opacity:.9}100%{transform:scale(1.12);opacity:0}}
+#paint.on2 .sun{animation:rise 2.4s ease-out both}
+#paint.on2 .cloud.c1{animation:drift 7s ease-in-out infinite alternate}
+#paint.on2 .cloud.c2{animation:drift 9s ease-in-out -3s infinite alternate}
+#paint.on2 .note{animation:floatup 3.4s ease-out infinite}
+#paint.on1 .hop{animation:hop 1.4s ease-in-out 1}
+#paint.on3 .bob{animation:bob 3.4s ease-in-out infinite}
+#paint.on3 .wl{animation:shimmer 4s ease-in-out infinite alternate}
+#paint.on4 .foot{animation:paddle 1.1s ease-in-out infinite alternate}
+#paint.on4 .ring{animation:ring 3.4s ease-out infinite}
+h1{margin:4px 0 0;font-weight:400;font-size:46px;letter-spacing:10px;padding-left:10px;line-height:1.1}
+.lines{list-style:none;margin:0;padding:0;width:100%;display:flex;flex-direction:column;gap:8px}
+.line{display:flex;align-items:center;gap:16px;width:100%;min-height:64px;padding:8px 16px;text-align:left;
+  background:rgba(255,255,255,.5);border:2.5px solid var(--ink);border-radius:18px;font-size:32px;line-height:1.2;
+  font-family:'Ma Shan Zheng','KaiTi','STKaiti','Songti SC',serif;box-shadow:2px 3px 0 rgba(43,43,43,.2)}
+.line .box{flex:none;width:26px;height:26px;border:2.5px solid var(--ink);border-radius:5px;background:transparent;transition:background .5s}
+.line.done .box{background:var(--ink)}
+.ctl{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;margin-top:4px}
+#go{display:inline-flex;align-items:center;justify-content:center;gap:12px;min-width:240px;min-height:76px;padding:10px 34px;
+  background:var(--ink);color:#f7f1e1;border:0;border-radius:999px;font-size:34px;
+  font-family:'Ma Shan Zheng','KaiTi','STKaiti','Songti SC',serif;box-shadow:3px 5px 0 rgba(43,43,43,.28)}
+#go:active{transform:translateY(2px)}
+#go svg{width:34px;height:34px;flex:none}
+#go.listening{background:var(--seal);animation:pulse 1.5s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(200,50,43,.45)}50%{box-shadow:0 0 0 16px rgba(200,50,43,0)}}
+#msg{min-height:34px;margin:0;text-align:center;font-size:24px;font-family:'Ma Shan Zheng','KaiTi','Songti SC',serif}
+#msg.sum{font-size:34px;color:var(--seal)}
+.tiles{width:100%;border-top:2px dashed rgba(43,43,43,.25);padding-top:10px;display:flex;flex-direction:column;align-items:center}
+.row{display:flex;justify-content:center;gap:10px;margin:8px 0}
+.tile{width:min(15.5vw,72px);aspect-ratio:1;display:grid;place-items:center;border:2.5px solid var(--ink);border-radius:10px;
+  background:rgba(255,255,255,.6);font-size:min(9vw,42px);text-decoration:none;
+  font-family:'Ma Shan Zheng','KaiTi','STKaiti','Songti SC',serif;box-shadow:2px 3px 0 rgba(43,43,43,.2)}
+.tile:active{transform:translateY(2px)}
+</style></head>
+<body><main>
+<svg id="paint" viewBox="0 0 680 480" role="img" aria-label="咏鹅" xmlns="http://www.w3.org/2000/svg">
+<defs><clipPath id="frame"><rect x="2" y="2" width="676" height="476" rx="10"/></clipPath></defs>
+<g clip-path="url(#frame)">
+<rect x="0" y="0" width="680" height="254" fill="#eeeade" data-fill="#cdeaf8" data-s="2"/>
+<g class="sun"><circle cx="190" cy="98" r="34" stroke="#2b2b2b" stroke-width="2.6" fill="#dedacf" data-fill="#ffd23f" data-s="2"/><path d="M232.0 98.0L248.0 98.0" stroke-width="4" stroke-linecap="round" stroke="#cfcabd" data-stroke="#f5a623" data-s="2"/><path d="M219.7 127.7L231.0 139.0" stroke-width="4" stroke-linecap="round" stroke="#cfcabd" data-stroke="#f5a623" data-s="2"/><path d="M190.0 140.0L190.0 156.0" stroke-width="4" stroke-linecap="round" stroke="#cfcabd" data-stroke="#f5a623" data-s="2"/><path d="M160.3 127.7L149.0 139.0" stroke-width="4" stroke-linecap="round" stroke="#cfcabd" data-stroke="#f5a623" data-s="2"/><path d="M148.0 98.0L132.0 98.0" stroke-width="4" stroke-linecap="round" stroke="#cfcabd" data-stroke="#f5a623" data-s="2"/><path d="M160.3 68.3L149.0 57.0" stroke-width="4" stroke-linecap="round" stroke="#cfcabd" data-stroke="#f5a623" data-s="2"/><path d="M190.0 56.0L190.0 40.0" stroke-width="4" stroke-linecap="round" stroke="#cfcabd" data-stroke="#f5a623" data-s="2"/><path d="M219.7 68.3L231.0 57.0" stroke-width="4" stroke-linecap="round" stroke="#cfcabd" data-stroke="#f5a623" data-s="2"/></g>
+<g class="cloud c1"><g transform="translate(268 38) scale(2.3)"><path class="ns" d="M17 47h31a10 10 0 0 0 0-20 14 14 0 0 0-27-3 11.5 11.5 0 0 0-4 23z" stroke="#2b2b2b" stroke-width="2.4" fill="#dedacf" data-fill="#ffffff" data-s="2"/></g></g><g class="cloud c2"><g transform="translate(372 100) scale(1.5)"><path class="ns" d="M17 47h31a10 10 0 0 0 0-20 14 14 0 0 0-27-3 11.5 11.5 0 0 0-4 23z" stroke="#2b2b2b" stroke-width="2.4" fill="#dedacf" data-fill="#ffffff" data-s="2"/></g></g>
+<path d="M-4 256C50 214 108 226 168 242C236 204 300 224 360 242C430 214 500 222 560 240C612 222 650 228 684 244L684 258L-4 258Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#dcd8cc" data-fill="#a7d3a0" data-s="4"/>
+<path d="M52 268C48 226 58 186 46 140" fill="none" stroke-width="10" stroke-linecap="round" stroke="#8f897b" data-stroke="#8b5a2b" data-s="4"/>
+<path d="M46 140C20 150 8 190 12 238" fill="none" stroke-width="3" stroke-linecap="round" stroke="#b9b3a4" data-stroke="#5fae5a" data-s="4"/><path d="M46 140C28 160 24 200 30 244" fill="none" stroke-width="3" stroke-linecap="round" stroke="#b9b3a4" data-stroke="#5fae5a" data-s="4"/><path d="M46 140C60 160 66 205 60 246" fill="none" stroke-width="3" stroke-linecap="round" stroke="#b9b3a4" data-stroke="#5fae5a" data-s="4"/><path d="M46 140C76 148 92 190 88 232" fill="none" stroke-width="3" stroke-linecap="round" stroke="#b9b3a4" data-stroke="#5fae5a" data-s="4"/><path d="M46 140C38 170 42 210 44 250" fill="none" stroke-width="3" stroke-linecap="round" stroke="#b9b3a4" data-stroke="#5fae5a" data-s="4"/><path d="M46 140C100 150 118 196 112 240" fill="none" stroke-width="3" stroke-linecap="round" stroke="#b9b3a4" data-stroke="#5fae5a" data-s="4"/>
+<rect x="0" y="254" width="680" height="226" fill="#e2ded4" data-fill="#86d1b0" data-s="3"/>
+<path d="M0 254H680" stroke="#2b2b2b" stroke-width="2" fill="none"/>
+<path class="wl" d="M10 292q15 -7 30 0t30 0t30 0t30 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#c3beb1" data-stroke="#4fae8a" data-s="3"/><path class="wl" d="M330 286q15 -7 30 0t30 0t30 0t30 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#c3beb1" data-stroke="#4fae8a" data-s="3"/><path class="wl" d="M150 410q15 -7 30 0t30 0t30 0t30 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#c3beb1" data-stroke="#4fae8a" data-s="3"/><path class="wl" d="M420 428q15 -7 30 0t30 0t30 0t30 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#c3beb1" data-stroke="#4fae8a" data-s="3"/><path class="wl" d="M30 455q15 -7 30 0t30 0t30 0t30 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#c3beb1" data-stroke="#4fae8a" data-s="3"/><path class="wl" d="M250 465q15 -7 30 0t30 0t30 0t30 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#c3beb1" data-stroke="#4fae8a" data-s="3"/><path class="wl" d="M520 330q15 -7 30 0t30 0t30 0t30 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#c3beb1" data-stroke="#4fae8a" data-s="3"/><ellipse class="ring" style="animation-delay:0s" cx="250" cy="350" rx="112" ry="20" fill="none" stroke-width="3" stroke="#c7c2b6" data-stroke="#3b9be0" data-s="4"/><ellipse class="ring" style="animation-delay:0.8s" cx="250" cy="350" rx="165" ry="30" fill="none" stroke-width="3" stroke="#c7c2b6" data-stroke="#3b9be0" data-s="4"/><ellipse class="ring" style="animation-delay:1.6s" cx="468" cy="338" rx="66" ry="12" fill="none" stroke-width="3" stroke="#c7c2b6" data-stroke="#3b9be0" data-s="4"/><ellipse class="ring" style="animation-delay:2.4000000000000004s" cx="468" cy="338" rx="98" ry="18" fill="none" stroke-width="3" stroke="#c7c2b6" data-stroke="#3b9be0" data-s="4"/><path d="M596 480C602 430 584 396 590 356" fill="none" stroke-width="4" stroke-linecap="round" stroke="#a7a193" data-stroke="#5fae5a" data-s="3"/><ellipse cx="590" cy="348" rx="5" ry="14" stroke="#2b2b2b" stroke-width="1.6" fill="#bdb7a9" data-fill="#8b5a2b" data-s="3"/><path d="M612 480C618 430 610 416 616 376" fill="none" stroke-width="4" stroke-linecap="round" stroke="#a7a193" data-stroke="#5fae5a" data-s="3"/><ellipse cx="616" cy="368" rx="5" ry="14" stroke="#2b2b2b" stroke-width="1.6" fill="#bdb7a9" data-fill="#8b5a2b" data-s="3"/><path d="M630 480C636 430 634 400 640 360" fill="none" stroke-width="4" stroke-linecap="round" stroke="#a7a193" data-stroke="#5fae5a" data-s="3"/><ellipse cx="640" cy="352" rx="5" ry="14" stroke="#2b2b2b" stroke-width="1.6" fill="#bdb7a9" data-fill="#8b5a2b" data-s="3"/><path d="M650 480C656 430 648 430 654 390" fill="none" stroke-width="4" stroke-linecap="round" stroke="#a7a193" data-stroke="#5fae5a" data-s="3"/><ellipse cx="654" cy="382" rx="5" ry="14" stroke="#2b2b2b" stroke-width="1.6" fill="#bdb7a9" data-fill="#8b5a2b" data-s="3"/><ellipse cx="150" cy="440" rx="26" ry="9" stroke="#2b2b2b" stroke-width="1.8" fill="#cfcabd" data-fill="#59b36f" data-s="3"/><ellipse cx="545" cy="452" rx="26" ry="9" stroke="#2b2b2b" stroke-width="1.8" fill="#cfcabd" data-fill="#59b36f" data-s="3"/><ellipse cx="40" cy="430" rx="26" ry="9" stroke="#2b2b2b" stroke-width="1.8" fill="#cfcabd" data-fill="#59b36f" data-s="3"/>
+<g transform="translate(468 330) scale(-0.6 0.6)"><g class="hop" style="animation-delay:0.18s"><g class="bob" style="animation-delay:0.36s">
+<g class="foot"><path d="M-10 8L-10 24" stroke="#2b2b2b" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M-10 24L-28 41L8 41Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cdc8bc" data-fill="#e8403a" data-s="4"/></g>
+<g class="foot" style="animation-delay:.4s"><path d="M20 8L20 22" stroke="#2b2b2b" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M20 22L2 39L38 39Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cdc8bc" data-fill="#e8403a" data-s="4"/></g>
+<path d="M40 -30C58 -48 54 -72 42 -90C32 -106 40 -124 60 -132" fill="none" stroke="#2b2b2b" stroke-width="18" stroke-linecap="round"/>
+<path d="M-66 -2C-80 -26 -52 -44 -18 -42C14 -40 40 -38 54 -20C62 -8 52 8 30 12C0 18 -48 14 -66 -2Z" stroke="#2b2b2b" stroke-width="2.6" stroke-linejoin="round" fill="#d6d2c8" data-fill="#ffffff" data-s="3"/>
+<path d="M40 -30C58 -48 54 -72 42 -90C32 -106 40 -124 60 -132" fill="none" stroke-width="13" stroke-linecap="round" stroke="#d6d2c8" data-stroke="#ffffff" data-s="3"/>
+<path d="M-42 -24C-22 -38 10 -34 30 -18C8 -14 -22 -8 -42 -24Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#c3beb2" data-fill="#e6eff6" data-s="3"/>
+<path class="wl" d="M-74 8q12 -7 24 0t24 0t24 0t24 0t24 0t24 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#bdb8ab" data-stroke="#4fae8a" data-s="3"/>
+<ellipse cx="63" cy="-136" rx="13" ry="10.5" transform="rotate(-25 63 -136)" stroke="#2b2b2b" stroke-width="2.4" stroke-linejoin="round" fill="#d6d2c8" data-fill="#ffffff" data-s="3"/>
+<path d="M72 -143L100 -171L81 -135Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cfcabd" data-fill="#f5a623" data-s="1"/>
+<path d="M75 -131L99 -135L73 -123Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cfcabd" data-fill="#f08a24" data-s="1"/>
+<circle cx="57" cy="-147" r="5" stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round" fill="#cfcabd" data-fill="#f5a623" data-s="1"/>
+<circle cx="66" cy="-138" r="2.4" fill="#2b2b2b"/>
+</g></g></g><g transform="translate(96 372) scale(0.5 0.5)"><g class="hop" style="animation-delay:0.36s"><g class="bob" style="animation-delay:0.72s">
+<g class="foot"><path d="M-10 8L-10 24" stroke="#2b2b2b" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M-10 24L-28 41L8 41Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cdc8bc" data-fill="#e8403a" data-s="4"/></g>
+<g class="foot" style="animation-delay:.4s"><path d="M20 8L20 22" stroke="#2b2b2b" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M20 22L2 39L38 39Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cdc8bc" data-fill="#e8403a" data-s="4"/></g>
+<path d="M40 -30C58 -48 54 -72 42 -90C32 -106 40 -124 60 -132" fill="none" stroke="#2b2b2b" stroke-width="18" stroke-linecap="round"/>
+<path d="M-66 -2C-80 -26 -52 -44 -18 -42C14 -40 40 -38 54 -20C62 -8 52 8 30 12C0 18 -48 14 -66 -2Z" stroke="#2b2b2b" stroke-width="2.6" stroke-linejoin="round" fill="#d6d2c8" data-fill="#ffffff" data-s="3"/>
+<path d="M40 -30C58 -48 54 -72 42 -90C32 -106 40 -124 60 -132" fill="none" stroke-width="13" stroke-linecap="round" stroke="#d6d2c8" data-stroke="#ffffff" data-s="3"/>
+<path d="M-42 -24C-22 -38 10 -34 30 -18C8 -14 -22 -8 -42 -24Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#c3beb2" data-fill="#e6eff6" data-s="3"/>
+<path class="wl" d="M-74 8q12 -7 24 0t24 0t24 0t24 0t24 0t24 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#bdb8ab" data-stroke="#4fae8a" data-s="3"/>
+<ellipse cx="63" cy="-136" rx="13" ry="10.5" transform="rotate(-25 63 -136)" stroke="#2b2b2b" stroke-width="2.4" stroke-linejoin="round" fill="#d6d2c8" data-fill="#ffffff" data-s="3"/>
+<path d="M72 -143L100 -171L81 -135Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cfcabd" data-fill="#f5a623" data-s="1"/>
+<path d="M75 -131L99 -135L73 -123Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cfcabd" data-fill="#f08a24" data-s="1"/>
+<circle cx="57" cy="-147" r="5" stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round" fill="#cfcabd" data-fill="#f5a623" data-s="1"/>
+<circle cx="66" cy="-138" r="2.4" fill="#2b2b2b"/>
+</g></g></g><g transform="translate(250 338) scale(1 1)"><g class="hop" style="animation-delay:0s"><g class="bob" style="animation-delay:0s">
+<g class="foot"><path d="M-10 8L-10 24" stroke="#2b2b2b" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M-10 24L-28 41L8 41Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cdc8bc" data-fill="#e8403a" data-s="4"/></g>
+<g class="foot" style="animation-delay:.4s"><path d="M20 8L20 22" stroke="#2b2b2b" stroke-width="3" stroke-linecap="round" fill="none"/><path d="M20 22L2 39L38 39Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cdc8bc" data-fill="#e8403a" data-s="4"/></g>
+<path d="M40 -30C58 -48 54 -72 42 -90C32 -106 40 -124 60 -132" fill="none" stroke="#2b2b2b" stroke-width="18" stroke-linecap="round"/>
+<path d="M-66 -2C-80 -26 -52 -44 -18 -42C14 -40 40 -38 54 -20C62 -8 52 8 30 12C0 18 -48 14 -66 -2Z" stroke="#2b2b2b" stroke-width="2.6" stroke-linejoin="round" fill="#d6d2c8" data-fill="#ffffff" data-s="3"/>
+<path d="M40 -30C58 -48 54 -72 42 -90C32 -106 40 -124 60 -132" fill="none" stroke-width="13" stroke-linecap="round" stroke="#d6d2c8" data-stroke="#ffffff" data-s="3"/>
+<path d="M-42 -24C-22 -38 10 -34 30 -18C8 -14 -22 -8 -42 -24Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#c3beb2" data-fill="#e6eff6" data-s="3"/>
+<path class="wl" d="M-74 8q12 -7 24 0t24 0t24 0t24 0t24 0t24 0" fill="none" stroke-width="2.6" stroke-linecap="round" stroke="#bdb8ab" data-stroke="#4fae8a" data-s="3"/>
+<ellipse cx="63" cy="-136" rx="13" ry="10.5" transform="rotate(-25 63 -136)" stroke="#2b2b2b" stroke-width="2.4" stroke-linejoin="round" fill="#d6d2c8" data-fill="#ffffff" data-s="3"/>
+<path d="M72 -143L100 -171L81 -135Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cfcabd" data-fill="#f5a623" data-s="1"/>
+<path d="M75 -131L99 -135L73 -123Z" stroke="#2b2b2b" stroke-width="2.2" stroke-linejoin="round" fill="#cfcabd" data-fill="#f08a24" data-s="1"/>
+<circle cx="57" cy="-147" r="5" stroke="#2b2b2b" stroke-width="2" stroke-linejoin="round" fill="#cfcabd" data-fill="#f5a623" data-s="1"/>
+<circle cx="66" cy="-138" r="2.4" fill="#2b2b2b"/>
+</g></g></g>
+<g class="notes" font-size="30"><text class="note" x="362" y="150" fill="#e0527a">♪</text><text class="note" x="388" y="124" fill="#7a5cd0" style="animation-delay:1s">♫</text><text class="note" x="352" y="118" fill="#f08a24" style="animation-delay:2s">♪</text></g>
+<g class="brush" fill="#2b2b2b"><g class="pt" data-l="0"><text x="642" y="50" text-anchor="middle">鹅</text><text x="642" y="81" text-anchor="middle">鹅</text><text x="642" y="112" text-anchor="middle">鹅</text></g><g class="pt" data-l="1"><text x="606" y="50" text-anchor="middle">曲</text><text x="606" y="81" text-anchor="middle">项</text><text x="606" y="112" text-anchor="middle">向</text><text x="606" y="143" text-anchor="middle">天</text><text x="606" y="174" text-anchor="middle">歌</text></g><g class="pt" data-l="2"><text x="570" y="50" text-anchor="middle">白</text><text x="570" y="81" text-anchor="middle">毛</text><text x="570" y="112" text-anchor="middle">浮</text><text x="570" y="143" text-anchor="middle">绿</text><text x="570" y="174" text-anchor="middle">水</text></g><g class="pt" data-l="3"><text x="534" y="50" text-anchor="middle">红</text><text x="534" y="81" text-anchor="middle">掌</text><text x="534" y="112" text-anchor="middle">拨</text><text x="534" y="143" text-anchor="middle">清</text><text x="534" y="174" text-anchor="middle">波</text></g><g class="tt"><text x="494" y="56" font-size="21">咏</text><text x="494" y="80" font-size="21">鹅</text><text x="494" y="106" font-size="13" fill="#555">骆</text><text x="494" y="122" font-size="13" fill="#555">宾</text><text x="494" y="138" font-size="13" fill="#555">王</text></g><rect x="481" y="156" width="26" height="26" rx="3" fill="#a39e92" data-fill="#c8322b" data-s="4"/><text x="494" y="176" font-size="18" fill="#fff" text-anchor="middle" class="brush">鹅</text></g>
+</g>
+<rect x="2" y="2" width="676" height="476" rx="10" fill="none" stroke="#2b2b2b" stroke-width="3"/>
+</svg>
+<h1 class="brush">咏鹅</h1>
+<ul class="lines" style="list-style:none;margin:0;padding:0;width:100%;display:flex;flex-direction:column;gap:8px"><li><button class="line" type="button" data-i="0"><span class="box"></span><span>鹅，鹅，鹅，</span></button></li><li><button class="line" type="button" data-i="1"><span class="box"></span><span>曲项向天歌。</span></button></li><li><button class="line" type="button" data-i="2"><span class="box"></span><span>白毛浮绿水，</span></button></li><li><button class="line" type="button" data-i="3"><span class="box"></span><span>红掌拨清波。</span></button></li></ul>
+<div class="ctl"><button id="go" type="button" data-state="idle"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="2.5" width="6" height="12" rx="3" fill="currentColor"/><path d="M5 11.5a7 7 0 0 0 14 0M12 18.5v3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span id="golab">Start</span></button><p id="msg" aria-live="polite"></p></div>
+<nav class="tiles" aria-label="字"><div class="row"><a class="tile" href="z01.html">鹅</a><a class="tile" href="z01.html">鹅</a><a class="tile" href="z01.html">鹅</a></div><div class="row"><a class="tile" href="z02.html">曲</a><a class="tile" href="z03.html">项</a><a class="tile" href="z04.html">向</a><a class="tile" href="z05.html">天</a><a class="tile" href="z06.html">歌</a></div><div class="row"><a class="tile" href="z07.html">白</a><a class="tile" href="z08.html">毛</a><a class="tile" href="z09.html">浮</a><a class="tile" href="z10.html">绿</a><a class="tile" href="z11.html">水</a></div><div class="row"><a class="tile" href="z12.html">红</a><a class="tile" href="z13.html">掌</a><a class="tile" href="z14.html">拨</a><a class="tile" href="z15.html">清</a><a class="tile" href="z16.html">波</a></div></nav>
+</main>
+<script>
+(function(){
+var LK=["鹅鹅鹅","曲项向天歌","白毛浮绿水","红掌拨清波"],MSG={"denied":"麦克风没打开。点一点诗句吧。","nomic":"找不到麦克风。点一点诗句吧。","network":"没有网络。点一点诗句吧。","unsupported":"这里听不见。点一点诗句吧。"},SUMMARY="大白鹅，真快乐！";
+var GROUPS=['鹅额俄饿蛾讹娥','曲区取去屈趋','项向象像相想巷','天田添甜填','歌哥割个鸽','白百拜败摆','毛猫矛冒帽茅','浮福服符扶佛幅','绿路录律陆','水谁睡税','红洪宏轰虹','掌张长涨章','拨波播泊薄','清青轻请晴情'];
+var MAP={};GROUPS.forEach(function(g){for(var i=0;i<g.length;i++)MAP[g[i]]=g[0]});
+var paint=document.getElementById('paint'),go=document.getElementById('go'),golab=document.getElementById('golab'),msg=document.getElementById('msg');
+var rows=document.querySelectorAll('.line'),pts=paint.querySelectorAll('.pt');
+var done=[false,false,false,false],listening=false,rec=null,fatal=false,restartT=0;
+function norm(s){var o='';for(var i=0;i<s.length;i++){var c=s[i];if(c>='\u4e00'&&c<='\u9fff')o+=(MAP[c]||c)}return o}
+LK=LK.map(norm);
+function lcs(a,b){
+  var la=a.length,lb=b.length,d=[],i,j;
+  for(i=0;i<=la;i++){d.push(new Array(lb+1).fill(0))}
+  for(i=1;i<=la;i++)for(j=1;j<=lb;j++)d[i][j]=a[i-1]===b[j-1]?d[i-1][j-1]+1:Math.max(d[i-1][j],d[i][j-1]);
+  var last=-1;i=la;j=lb;
+  while(i>0&&j>0){if(a[i-1]===b[j-1]){if(last<0)last=j-1;i--;j--}else if(d[i-1][j]>=d[i][j-1])i--;else j--}
+  return {n:d[la][lb],last:last};
+}
+function findLine(t,text,from){
+  var need=t.length>=5?3:2,best=0,end=-1;
+  for(var s=from;s<text.length;s++){
+    var r=lcs(t,text.slice(s,s+t.length+3));
+    if(r.n>best){best=r.n;end=s+r.last+1;if(best===t.length)break}
+  }
+  return best>=need?end:-1;
+}
+function activate(k){
+  paint.classList.add('on'+k);
+  var els=paint.querySelectorAll('[data-s="'+k+'"]');
+  for(var i=0;i<els.length;i++){var e=els[i];e.style.transition='fill 2s ease, stroke 2s ease';
+    if(e.hasAttribute('data-fill'))e.style.fill=e.getAttribute('data-fill');
+    if(e.hasAttribute('data-stroke'))e.style.stroke=e.getAttribute('data-stroke')}
+  pts[k-1].classList.add('on');
+}
+function allDone(){return done.every(Boolean)}
+function trigger(i){
+  if(done[i])return false;
+  done[i]=true;activate(i+1);rows[i].classList.add('done');
+  if(msg.className!=='sum')setMsg('');
+  if(allDone())finish();
+  return true;
+}
+function finish(){
+  stopListening(true);
+  setMsg(SUMMARY,true);golab.textContent='Again';go.setAttribute('data-state','done');
+}
+function reset(){
+  done=[false,false,false,false];
+  paint.className.baseVal='';
+  var els=paint.querySelectorAll('[data-s]');
+  for(var i=0;i<els.length;i++){var e=els[i];e.style.transition='fill .6s ease, stroke .6s ease';e.style.fill='';e.style.stroke=''}
+  for(i=0;i<pts.length;i++)pts[i].classList.remove('on');
+  for(i=0;i<rows.length;i++)rows[i].classList.remove('done');
+  setMsg('');golab.textContent='Start';go.setAttribute('data-state','idle');
+}
+function setMsg(t,sum){msg.textContent=t;msg.className=sum?'sum':''}
+function processText(raw){
+  var t=norm(String(raw||'')),cur=0,hit=[];
+  for(var i=0;i<LK.length;i++){
+    var e=findLine(LK[i],t,cur);
+    if(e>=0){cur=e;if(trigger(i))hit.push(i)}
+  }
+  return hit;
+}
+window.heardText=processText;
+function onResult(ev){
+  var n=ev.results.length,cands=[];
+  for(var r=0;r<3;r++){
+    var s='';
+    for(var j=0;j<n;j++){var a=ev.results[j];s+=(a[r]||a[0]).transcript}
+    cands.push(s);
+  }
+  for(var j2=0;j2<n;j2++){var a2=ev.results[j2];for(var r2=0;r2<a2.length;r2++)cands.push(a2[r2].transcript)}
+  for(var c=0;c<cands.length;c++)processText(cands[c]);
+}
+var SR=window.SpeechRecognition||window.webkitSpeechRecognition;
+function setListening(on){
+  listening=on;go.classList.toggle('listening',on);
+  if(on){golab.textContent='Listening';go.setAttribute('data-state','listening');setMsg('')}
+  else if(!allDone()){golab.textContent='Start';go.setAttribute('data-state','idle')}
+}
+function startListening(){
+  if(!SR){setMsg(MSG.unsupported);return}
+  fatal=false;
+  try{
+    rec=new SR();rec.lang='zh-CN';rec.continuous=true;rec.interimResults=true;rec.maxAlternatives=3;
+    rec.onresult=onResult;
+    rec.onerror=function(e){
+      var k=e&&e.error;
+      if(k==='no-speech'||k==='aborted')return;
+      fatal=true;
+      setMsg(k==='not-allowed'||k==='service-not-allowed'?MSG.denied:k==='audio-capture'?MSG.nomic:k==='network'?MSG.network:MSG.unsupported);
+      setListening(false);
+    };
+    rec.onend=function(){
+      if(listening&&!fatal&&!allDone()){clearTimeout(restartT);restartT=setTimeout(function(){if(!listening)return;try{rec.start()}catch(x){}},250)}
+    };
+    setListening(true);
+    rec.start();
+  }catch(x){setListening(false);setMsg(MSG.unsupported)}
+}
+function stopListening(silent){
+  var was=listening;setListening(false);clearTimeout(restartT);
+  if(rec){try{rec.stop()}catch(x){}}
+  return was;
+}
+go.addEventListener('click',function(){
+  if(allDone()){reset();return}
+  if(listening)stopListening();else startListening();
+});
+for(var i=0;i<rows.length;i++)rows[i].addEventListener('click',function(){trigger(+this.getAttribute('data-i'))});
+})();
+</script>
+</body></html>

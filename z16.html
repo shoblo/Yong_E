@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>波</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#f4eedd;--ink:#2b2b2b;--seal:#c8322b;--soft:#8a8578}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{background:var(--paper)}
+body{margin:0;min-height:100vh;min-height:100dvh;color:var(--ink);
+  background:var(--paper) url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20width%3D'220'%20height%3D'220'%3E%3Cfilter%20id%3D'n'%3E%3CfeTurbulence%20type%3D'fractalNoise'%20baseFrequency%3D'.75'%20numOctaves%3D'2'%20stitchTiles%3D'stitch'%2F%3E%3CfeColorMatrix%20values%3D'0%200%200%200%20.42%200%200%200%200%20.32%200%200%200%200%20.18%200%200%200%20.09%200'%2F%3E%3C%2Ffilter%3E%3Crect%20width%3D'100%25'%20height%3D'100%25'%20filter%3D'url(%23n)'%2F%3E%3C%2Fsvg%3E");
+  font-family:'Noto Serif SC','Songti SC','STSong','SimSun',serif;
+  -webkit-font-smoothing:antialiased}
+.brush{font-family:'Ma Shan Zheng','KaiTi','STKaiti','Kaiti SC','Songti SC',serif}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition-duration:.01s!important}
+}
+
+main{max-width:520px;margin:0 auto;padding:18px 16px 40px;display:flex;flex-direction:column;align-items:center;gap:14px}
+.sq{position:relative;width:min(80vw,44dvh,360px);width:min(80vw,360px);aspect-ratio:1;background:var(--bg,#fff);
+  border:3px solid var(--ink);border-radius:10px;box-shadow:4px 5px 0 rgba(43,43,43,.18);overflow:hidden;transition:background .35s}
+.sq .gh,.sq .gv{position:absolute;pointer-events:none}
+.sq .gh{left:0;right:0;top:50%;border-top:2px dashed var(--gl,rgba(43,43,43,.2))}
+.sq .gv{top:0;bottom:0;left:50%;border-left:2px dashed var(--gl,rgba(43,43,43,.2))}
+.pic{width:min(80vw,360px);height:min(46vw,200px);display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.55);border:3px solid var(--ink);border-radius:18px;box-shadow:3px 4px 0 rgba(43,43,43,.18)}
+.pic[hidden]{display:none}
+.pic svg{height:78%;width:auto;max-width:90%}
+#hz{position:absolute;inset:0;width:100%;height:100%}
+.word{border:0;background:none;padding:0 18px;line-height:1.1;font-size:96px;min-height:112px;min-width:140px;
+  font-family:'Ma Shan Zheng','KaiTi','STKaiti','Songti SC',serif;color:var(--ink)}
+.word.en{font-family:'Noto Serif SC',Georgia,serif;font-size:60px;font-weight:700;letter-spacing:1px}
+.word.out{-webkit-text-stroke:3px var(--ink);paint-order:stroke fill}
+.vbs{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:-6px}
+.vb{display:flex;flex-direction:column;align-items:center;gap:2px;min-width:68px;min-height:68px;padding:6px 8px;
+  background:rgba(255,255,255,.55);border:2.5px solid var(--ink);border-radius:16px;font-size:15px;box-shadow:2px 3px 0 rgba(43,43,43,.2)}
+.vb[aria-pressed="true"]{background:#fff;box-shadow:inset 0 0 0 3px var(--seal);border-color:var(--seal)}
+.vb .sw{width:40px;height:40px;border-radius:50%;border:2.5px solid var(--ink)}
+.vb svg{width:40px;height:40px}
+.vbs.c{gap:6px;flex-wrap:nowrap}
+.vb.color{min-width:0;flex:1 1 0;padding:6px 2px;min-height:64px}
+.vb.color .sw{width:34px;height:34px}
+h2{font-family:'Ma Shan Zheng','Noto Serif SC','KaiTi','Songti SC',serif;font-weight:400;font-size:32px;margin:14px 0 0;letter-spacing:2px}
+.fr{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;width:100%;margin:0;padding:0;list-style:none}
+.fr li{display:flex}
+.fb{display:flex;align-items:center;gap:10px;width:100%;min-height:76px;padding:8px 12px;text-align:left;background:rgba(255,255,255,.55);
+  border:2.5px solid var(--ink);border-radius:18px;box-shadow:2px 3px 0 rgba(43,43,43,.2);font-family:'Noto Serif SC','Songti SC',serif}
+.fb:active{transform:translateY(2px)}
+.fb.en{background:#fff;border-color:var(--seal);box-shadow:inset 0 0 0 2px var(--seal)}
+.fb.en span{font-size:19px;overflow-wrap:normal}
+.fb.en.long span{font-size:15px}
+.fb span{min-width:0}
+.fr svg{flex:none;width:52px;height:52px}
+.fr span{font-size:26px;font-weight:700;line-height:1.15}
+.fr b{color:var(--seal)}
+.back{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:64px;min-width:200px;margin-top:10px;padding:10px 28px;
+  border:3px solid var(--ink);border-radius:999px;background:#fff;text-decoration:none;font-size:28px;
+  font-family:'Ma Shan Zheng','KaiTi','Songti SC',serif;box-shadow:3px 4px 0 rgba(43,43,43,.25)}
+.back:active{transform:translateY(2px)}
+</style></head>
+<body><main>
+<div class="pic" id="art" hidden></div>
+<div class="sq" id="sq"><div class="gh"></div><div class="gv"></div><svg id="hz" viewBox="0 0 1024 1024" role="img" aria-label="波"></svg></div>
+<button class="word" id="word" type="button">波</button>
+
+<h2>Good friends</h2>
+<ul class="fr"><li><button class="fb" type="button" data-en="wave" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 38c6-18 18-18 22-4 4-14 14-16 20-4 4 8 8 10 14 2" stroke="#2f7fd0" stroke-width="4"/><path d="M4 50c8-6 14 6 22 0s14 6 22 0 8 2 12 0" stroke="#8ac7ee" stroke-width="4"/></svg><span><b>波</b>浪</span></button></li><li><button class="fb" type="button" data-en="ripple" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="32" cy="34" rx="8" ry="4" stroke="#2f7fd0" stroke-width="3"/><ellipse cx="32" cy="34" rx="18" ry="9" stroke="#5aaee6" stroke-width="3"/><ellipse cx="32" cy="34" rx="28" ry="14" stroke="#8ac7ee" stroke-width="3"/></svg><span>水<b>波</b></span></button></li><li><button class="fb" type="button" data-en="sparkle" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M24 8c1 10 4 14 14 16-10 2-13 6-14 16-1-10-4-14-14-16 10-2 13-6 14-16z" fill="#ffe28a"/><path d="M46 34c1 6 3 8 9 9-6 1-8 3-9 9-1-6-3-8-9-9 6-1 8-3 9-9z" fill="#ffd23f"/></svg><span><b>波</b>光</span></button></li><li><button class="fb" type="button" data-en="cat" aria-pressed="false"><svg class="" viewBox="0 0 64 64" width="52" height="52" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 28L10 8l14 8h16l14-8-2 20c4 6 2 20-8 24H20c-10-4-12-18-8-24z" fill="#f5f0e6"/><circle cx="24" cy="34" r="2" fill="#2b2b2b" stroke="none"/><circle cx="40" cy="34" r="2" fill="#2b2b2b" stroke="none"/><path d="M29 41l3 2 3-2M32 43v4M20 42l-8 2M20 46l-8 0M44 42l8 2M44 46l8 0" stroke-width="1.8"/></svg><span><b>波</b>斯猫</span></button></li></ul>
+<a class="back" href="./"><svg class="" viewBox="0 0 64 64" width="30" height="30" fill="none" stroke="#2b2b2b" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><g transform="rotate(-90 32 32)"><path d="M32 54V12M15 29L32 12l17 17" stroke="#2f7fd0" stroke-width="6"/></g></svg>回到诗</a>
+</main>
+<script>
+(function(){
+var DATA={"波":{"strokes":["M 211 728 Q 198 729 195 723 Q 191 714 201 703 Q 273 619 306 614 Q 315 613 321 616 Q 325 622 330 639 Q 333 657 326 674 Q 311 713 211 728 Z","M 143 492 Q 182 441 219 422 Q 235 418 246 433 Q 253 446 251 466 Q 245 493 226 508 Q 181 539 138 539 Q 132 539 130 537 Q 123 536 125 522 Q 126 509 143 492 Z","M 125 154 Q 112 151 114 133 Q 127 54 160 34 Q 167 27 178 29 Q 185 30 188 56 Q 200 116 316 371 Q 323 387 323 394 Q 322 404 313 398 Q 298 389 170 198 Q 157 176 125 154 Z","M 628 573 Q 674 588 722 597 Q 756 604 759 590 Q 759 575 732 521 Q 723 505 731 501 Q 738 497 752 509 Q 828 563 859 573 Q 884 577 882 592 Q 881 605 803 643 Q 781 653 752 646 Q 685 625 630 609 L 578 596 Q 523 586 455 571 C 426 565 435 521 464 529 Q 566 559 578 561 L 628 573 Z","M 455 571 Q 409 604 388 596 Q 376 589 383 575 Q 399 554 400 490 Q 399 484 399 475 Q 396 330 363 224 Q 333 133 270 30 Q 266 24 263 18 Q 262 8 272 9 Q 299 12 369 125 Q 379 146 390 167 Q 438 278 458 478 Q 462 526 464 529 C 469 559 469 562 455 571 Z","M 618 392 Q 624 486 628 573 L 630 609 Q 633 699 652 784 Q 656 796 635 811 Q 598 830 573 835 Q 557 839 548 830 Q 541 821 549 806 Q 574 770 574 745 Q 578 673 578 596 L 578 561 Q 578 476 574 380 C 573 350 616 362 618 392 Z","M 608 163 Q 598 151 587 139 Q 533 90 397 50 Q 381 46 391 38 Q 398 32 428 36 Q 519 46 572 70 Q 611 89 643 124 L 674 164 Q 711 219 737 301 Q 744 337 766 354 Q 782 369 764 385 Q 743 401 709 416 Q 687 423 664 413 Q 642 401 618 392 L 574 380 Q 496 365 492 362 Q 483 355 502 346 Q 529 333 569 345 Q 612 355 656 366 Q 677 373 677 349 Q 677 277 633 199 L 608 163 Z","M 643 124 Q 712 48 772 -12 Q 791 -31 819 -29 Q 972 -8 981 6 Q 985 13 974 17 Q 809 62 705 139 Q 690 151 674 164 L 633 199 Q 587 239 534 292 Q 521 308 502 309 Q 478 308 472 300 Q 471 294 478 290 Q 518 272 544 237 Q 577 200 608 163 L 643 124 Z"],"medians":[[[203,718],[292,662],[312,626]],[[137,526],[209,474],[225,445]],[[173,39],[162,71],[162,124],[316,392]],[[465,566],[479,555],[494,557],[717,616],[763,622],[781,616],[798,603],[802,592],[735,508]],[[394,583],[426,552],[431,510],[426,433],[406,297],[381,204],[346,124],[313,69],[272,18]],[[560,821],[609,779],[610,770],[598,417],[580,388]],[[496,357],[557,359],[679,391],[703,382],[717,362],[701,287],[680,231],[656,184],[610,126],[567,94],[525,74],[453,52],[397,43]],[[480,298],[512,290],[530,275],[667,135],[808,22],[897,10],[975,10]]]}}, CFG={"start":"波","kind":null,"items":[],"en":"wave"};
+var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+var sq=document.getElementById('sq'),hz=document.getElementById('hz'),art=document.getElementById('art'),word=document.getElementById('word');
+var cur=CFG.start,showEn=false,raf=0,state=null;
+function item(ch){for(var i=0;i<CFG.items.length;i++)if(CFG.items[i].ch===ch)return CFG.items[i];return null}
+function enOf(ch){var it=item(ch);return it?it.en:CFG.en}
+function mlen(m){var s=0;for(var i=1;i<m.length;i++){s+=Math.hypot(m[i][0]-m[i-1][0],m[i][1]-m[i-1][1])}return s}
+function build(ch,fg){
+  var d=DATA[ch],ns='http://www.w3.org/2000/svg';
+  var defs='',ghost='',ink='';
+  d.strokes.forEach(function(p,i){
+    defs+='<clipPath id="cp'+i+'"><path d="'+p+'"/></clipPath>';
+    ghost+='<path d="'+p+'"/>';
+    var m=d.medians[i],pts='M'+m[0][0]+' '+m[0][1];
+    for(var k=1;k<m.length;k++)pts+=' L'+m[k][0]+' '+m[k][1];
+    if(m.length===1)pts+=' L'+m[0][0]+' '+m[0][1];
+    ink+='<g clip-path="url(#cp'+i+')"><path class="ms" d="'+pts+'" pathLength="1" fill="none" stroke="'+fg+'" stroke-width="190" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="1 1" stroke-dashoffset="1" stroke-opacity="0"/></g>';
+  });
+  hz.innerHTML='<defs>'+defs+'</defs><g transform="scale(1,-1) translate(0,-900)"><g fill="'+fg+'" fill-opacity=".13">'+ghost+'</g><g id="ink">'+ink+'</g></g>';
+  var ms=hz.querySelectorAll('.ms'),lens=d.medians.map(mlen),t=0,sched=[];
+  lens.forEach(function(L){var dur=.4+L/1100;sched.push({s:t,d:dur});t+=dur+.14});
+  return {ms:ms,sched:sched,draw:t,inkG:hz.querySelector('#ink')};
+}
+function ease(x){return x<.5?2*x*x:1-Math.pow(-2*x+2,2)/2}
+function frame(c){
+  var s=state,hold=1.4,fade=.6;
+  for(var i=0;i<s.ms.length;i++){
+    var p=Math.max(0,Math.min(1,(c-s.sched[i].s)/s.sched[i].d));
+    s.ms[i].setAttribute('stroke-dashoffset',String(1-ease(p)));
+    s.ms[i].setAttribute('stroke-opacity',p>0?'1':'0');
+  }
+  var o=1;if(c>s.draw+hold)o=Math.max(0,1-(c-s.draw-hold)/fade);
+  s.inkG.setAttribute('opacity',String(o));
+}
+function play(ch,fg){
+  cancelAnimationFrame(raf);state=build(ch,fg);
+  if(reduce){frame(1e6-1+0);state.inkG.setAttribute('opacity','1');for(var i=0;i<state.ms.length;i++){state.ms[i].setAttribute('stroke-dashoffset','0');state.ms[i].setAttribute('stroke-opacity','1')}return}
+  var t0=performance.now(),cycle=state.draw+1.4+.6+.45;
+  (function loop(now){var c=((now-t0)/1000)%cycle;frame(c);raf=requestAnimationFrame(loop)})(t0);
+}
+function show(ch){
+  cur=ch;showEn=false;var it=item(ch);
+  var bg='#ffffff',fg='#2b2b2b',gl='rgba(43,43,43,.2)',outline=false,col='';
+  art.innerHTML='';
+  if(CFG.kind==='color'&&it){bg=it.color;fg=it.fg;col=it.color;outline=true;gl=fg==='#ffffff'?'rgba(255,255,255,.35)':'rgba(43,43,43,.2)'}
+  else if(CFG.kind==='art'&&it){art.innerHTML=CFG.icons[ch]||''}
+  sq.style.setProperty('--bg',bg);sq.style.setProperty('--gl',gl);
+  word.textContent=ch;word.className='word'+(outline?' out':'');word.style.color=col||'';
+  word.setAttribute('aria-label',ch);
+  var bs=document.querySelectorAll('.vb');for(var i=0;i<bs.length;i++)bs[i].setAttribute('aria-pressed',bs[i].getAttribute('data-ch')===ch?'true':'false');
+  play(ch,fg);
+}
+word.addEventListener('click',function(){
+  showEn=!showEn;
+  if(showEn){word.textContent=enOf(cur);word.classList.add('en');word.classList.remove('out')}
+  else{var it=item(cur);word.textContent=cur;word.classList.remove('en');if(CFG.kind==='color'&&it)word.classList.add('out')}
+});
+var bs=document.querySelectorAll('.vb');
+for(var i=0;i<bs.length;i++)bs[i].addEventListener('click',function(){show(this.getAttribute('data-ch'))});
+var fbs=document.querySelectorAll('.fb');
+for(var f=0;f<fbs.length;f++){(function(b){var sp=b.querySelector('span'),zh=sp.innerHTML,en=b.getAttribute('data-en');
+  b.addEventListener('click',function(){var on=!b.classList.contains('en');b.classList.toggle('en',on);b.classList.toggle('long',on&&en.length>=9);b.setAttribute('aria-pressed',on?'true':'false');sp.innerHTML=on?en:zh})})(fbs[f])}
+show(cur);
+})();
+</script>
+</body></html>
